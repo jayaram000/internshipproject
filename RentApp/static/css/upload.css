@@ -1,0 +1,58 @@
+.container-fluid{
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+.container-fluid .form-section
+{
+    width:500px;
+    background-color: white;
+    border-radius:15px;
+    padding:40px;
+    box-shadow:0 5px 10px rgba(0,0,0,.6);
+}
+
+
+.input-group{
+width:300px;
+margin:30px auto;
+display:flex;
+flex-direction:column;
+position:relative;
+}
+
+.input-group label{
+color:grey;
+position:absolute;
+top:8px;
+transition: .3s ease-in-out;
+
+}
+
+.input-group .input{
+border:none;
+padding:7px;
+margin-top:5px;
+outline:none;
+border-bottom:2px solid #c9c9c98a;
+width:350px;
+}
+
+
+.input-group .input:focus ~ label,
+.input-group .input:valid ~ label
+{
+color:#51a1fc;
+top:-10px;
+font-size:12px;
+font-weight:bold;
+
+
+}
+
+
+
+.submit-section .btn{
+width:250px;
+}

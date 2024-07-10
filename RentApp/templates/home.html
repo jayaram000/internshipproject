@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+
+<div class="container-fluid mt-5 pt-5" >
+{% if user.is_authenticated %}
+    <!-- Modal -->
+<h1 data-aos="fade-down" class="text-center">Welcome {{user.first_name}} {{user.last_name}} !!</h1>
+{% endif %}
+
+  <div class="row mt-5" data-aos="fade-down">
+
+    <div class="col-md-5 ms-3">
+
+    <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="{% static 'images/vehicle.jpeg' %}" class="d-block w-100" alt="..." height="400px" width="70%">
+
+    </div>
+    <div class="carousel-item "  style=" box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);">
+      <img src="{% static 'images/electr.jpg' %}" class="d-block w-100" alt="..." height="400px" width="400px">
+
+    </div>
+    <div class="carousel-item">
+      <img src="{%static 'images/house1.avif' %}" class="d-block w-100" alt="..." height="400px" width="400px">
+
+    </div>
+  </div>
+
+      </div>
+
+
+  </div>
+
+<div class="col-md-6 ms-5" style="display:flex;justify-content:center;box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);">
+    <div>
+        <center><h1 data-aos="fade-left" class="m-5">Discover Rento!!!</h1>
+        <div>
+            <p class="ms-5">Welcome to <b>Rento</b>, your one-stop destination for all your rental needs! <br>Whether you're searching for a cozy apartment, a stylish car, or electronic items, Rento has you covered. With a vast array of rental listings uploaded by users just like you, finding your perfect rental experience has never been easier.</p>
+        </div></center>
+    </div>
+</div>
+</div>
+
+    <div class="mt-4" >
+        <h1 class="mt-4" data-aos="fade-left" style="display:flex;justify-content:center;">Our Collections</h1>
+    </div>
+    <div data-aos="fade-left" class="collection_div m-5" style="box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);">
+        <div class="row m-5" style="display:flex;justify-content:center;">
+            <div class="collection-list col-md-4 ">
+                <div>
+                <i class="fa-solid fa-car-side" ></i>
+                <h2>Vehicles</h2>
+                <p >Explore our collection of vehicles available for rent  and discover the perfect ride for your next adventure.</p>
+                <a  href="{%url 'app1:category' 'Vehicles' %}" class="btn btn-info mt-4" style="margin-bottom:12px;">Learn more!!</a>
+                </div>
+            </div>
+
+            <div class="collection-list col-md-4  ">
+                <div>
+               <i class="fa-solid fa-building"></i>
+               <h2>Buildings,Apartment,House...</h2>
+                <p >Discover the perfect rental solution for your lifestyle,whether it's a spacious house, a modern apartment, or a prestigious building in the heart of the city.</p>
+                <a href="{%url 'app1:category' 'buildings' %}" class="btn btn-info " style="margin-top: 2px;">Learn more!!</a>
+             </div>
+            </div>
+
+            <div class="collection-list col-md-4 ">
+                <div>
+                <i class="fa-solid fa-bolt"></i>
+                <h2>Electronics</h2>
+                <p>Experience the convenience of renting good-quality electronics items for your desired purpose</p>
+                <a href="{%url 'app1:category' 'Electronics' %}" class="btn btn-info ">Learn more!!</a>
+                </div>
+            </div>
+
+                <div class="collection-list col-md-4 " >
+                    <div>
+                    <i class="fa-solid fa-gear"></i>
+                    <h2>Others</h2>
+                    <p>Explore our wide range of rental options beyond the usual, from specialty equipment to unique experiences, we have everything <br>you need to make your rental experience extraordinary.</p>
+                    <a href="{%url 'app1:category' 'others' %}" class="btn btn-info " style="margin-top: 5px;">Learn more!!</a>
+                    </div>
+                </div>
+        </div>
+
+        <div class="browse " style="display:flex;align-items:center;justify-content:center;" >
+            <a href="{%url 'app1:items'%}" class="btn btn-info text-light mb-5" >Browse More !!</a>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

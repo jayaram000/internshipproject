@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container-fluid mb-5 pb-5" style="padding-top: 125px;">
+    <div class="row">
+        {% if not booking_requests%}
+        <p class="text-center">Currently no request available</p>
+        {%endif%}
+        {% for request in booking_requests %}
+            <div class="col-md-4 pb-4 mb-4">
+                <div class="card">
+                    <img src="{{ request.item.image.url }}" class="card-img-top" style="width: 100%; max-height: 150px; object-fit: cover;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ request.item.name }}</h5>
+                        <p class="card-text">
+                            <strong>Requested by:</strong> {{ request.user.username }}<br>
+                            <strong>Email:</strong> {{ request.email }}<br>
+                            <strong>Requested Date:</strong> {{ request.requested_date }}<br>
+                        </p>
+                        <form action="{% url 'app1:reply_booking_request' request.id %}" method="post">
+                            {% csrf_token %}
+                            <div class="d-flex justify-content-between">
+                                {% if request.booking_status == 'accepted' %}
+                                    <strong class="text-success">Accepted</strong>
+                                {% else %}
+                                    <button type="submit" name="status" value="accepted" class="btn btn-success">Accept</button>
+                                {% endif %}
+                                {% if request.booking_status == 'not_available' %}
+                                    <strong class="text-danger">Rejected</strong>
+                                {% else %}
+                                    <button type="submit" name="status" value="not_available" class="btn btn-danger">Reject</button>
+                                {% endif %}
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

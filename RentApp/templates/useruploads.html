@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}User Uploads{% endblock %}
+
+{% block content %}
+<div class="container-fluid" style="padding-top: 125px;">
+
+  <h3 class="text-center">View Booking Status and Request</h3>
+  <div style="">
+    <div class="text-center">
+       <a href="{%url 'app1:viewreq' %}" ><button class="btn btn-primary m-4">View Your Requests Status</button></a>
+      <a href="{%url 'app1:bookreq'%}"><button class="btn btn-danger m-4 ">View Recived Request</button></a>
+
+
+    </div>
+
+  </div>
+
+<div class="row">
+  <h3 class="text-center p-4">Your Uploads</h3>
+  {% for i in item %}
+  <div class="col-lg-3 col-md-4 col-sm-6  mb-5 " data-aos="fade-left">
+<div class="product-card mt-2 mb-4 ms-4" style="background-color:white;border-radius:10px;box-shadow:0 4px 8px rgba(0,0,0,0.1);transition:all .5s;overflow:hidden;width:300px;">
+
+  <div class="product-image " >
+    <img src="{{i.image.url}}" style="width:100%;height:200px;background-size:cover;" class="image-hover">
+  </div>
+  <div class="product-info">
+    <div class="product-name p-2 text-center"><b>{{i.name}}</b></div>
+    <div class="product-price ps-2 text-center">{{i.price}} per day</div>
+    <div class="product-upload pt-2 ps-2 text-center d-flex justify-content-around">
+    <a href="{%url 'app1:delete' i.id %}" class="btn btn-danger  mt-3 mb-3 ">Delete Post</a>
+<!-- <a href="{% url 'app1:delete' pk=i.pk %}"  class="btn btn-danger  mt-3 mb-3 ">Delete Post</a>-->
+      <a href="{%url 'app1:itemdetail' i.pk %}" class="btn btn-success  m-3">Details</a>
+    <a href="{% url 'app1:update' i.id %}" class="btn btn-success me-2 mt-3 mb-3 ">Edit Post</a>
+      </div>
+  </div>
+</div>
+    </div>
+{% endfor %}
+</div>
+
+
+
+</div>
+
+
+
+{% endblock %}

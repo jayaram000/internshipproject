@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Item Upload{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet"  href="{% static 'css/upload.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid" style="padding-top: 125px;padding-bottom:50px;">
+
+
+
+<div class="form-section mb-5" data-aos="fade-left">
+<form method="POST" enctype="multipart/form-data">
+{% csrf_token %}
+    <h3 class="text-center text-gray">Update Your Item</h3>
+    <div class="input-group">
+        <input class="input" type="text" name="name" id="name" value="{{item.name}}" required>
+        <label for="name">Item Name</label>
+    </div>
+    <div class="input-group">
+        <textarea class="input" name="desc" id="desc" required rows="2" cols="10" >{{item.desc}}</textarea>
+        <label for="desc">Description</label>
+    </div>
+        <div class="input-group">
+        <input class="input" type="number" name="price" id="price" value="{{item.price}}"  required>
+        <label for="price">Price</label>
+    </div>
+
+
+    <div class="input-group">
+
+        <input type="file" class="input" id="image" name="image" onchange="previewImage(event)">
+        <label for="image">Image:</label>
+        {% if item.image %}
+            <img id="preview" src="{{ item.image.url }}" alt="{{ item.name }}" style="max-width: 150px; margin-top: 10px;">
+        {% else %}
+            <img id="preview" src="#" alt="Preview" style="display: none; max-width: 150px; margin-top: 10px;">
+        {% endif %}
+    </div>
+
+
+
+    <div class="input-group">
+        <input class="input" type="number" name="phone" id="phone" value="{{item.phone}}" required>
+        <label for="phone">Contact No.</label>
+    </div>
+    <div class="input-group">
+
+        <select class="input" id="cat" name="category" required>
+            {% for i in links %}
+            <option  value="{{ i.name }}" {% if i.name == item.category.name %}selected{% endif %}>{{i.name}}</option>
+            {% endfor %}
+        </select>
+        <label class="none" for="cat">Category</label>
+
+    </div>
+    <div class="submit-section text-center">
+        <button type="submit" class="btn btn-info text-center">Upload</button>
+    </div>
+</form>
+</div>
+</div>
+
+<script>
+    function previewImage(event) {
+        var reader = new FileReader();
+        reader.onload = function() {
+            var output = document.getElementById('preview');
+            output.src = reader.result;
+            output.style.display = 'block';
+        }
+        reader.readAsDataURL(event.target.files[0]);
+    }
+</script>
+
+{% endblock %}

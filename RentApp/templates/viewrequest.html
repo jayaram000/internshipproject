@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{%block content %}
+
+<div class="container-fluid mb-5 pb-5" style="padding-top: 125px;">
+    <table class="table ">
+        <thead>
+            <tr class="border-b border-white border-collapse text-left ">
+                <th class="py-4 px-3">Image</th>
+                <th class="py-4 px-3">Name</th>
+                <th class="py-4 px-3">Uploaded User</th>
+                <th class="py-4 px-3">Booking Status</th>
+                <th class="py-4 px-3">View </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if not viewreq%}
+            <tr>
+                <td colspan="4" class="text-center text-slate-600 font-bold text-3xl pt-5">Your requests will show here and wait for your approval...</td>
+            </tr>
+
+            {% endif %}
+            {% for i in viewreq %}
+            <tr class="border-b border-white border-collapse text-dark fw-normal" style="font-size:24px;">
+                <td class="py-4 px-3 "><img src="{{ i.item.image.url }}" style="width: 150px; max-height: 150px;"></td>
+                <td class="py-4 px-3 ">{{ i.item.name}}</td>
+                <td class="py-4 px-3">{{i.uploadedBy}}</td>
+
+                {% if i.booking_status == 'accepted' %}
+                <td class="py-4 px-3">Item is available for the <br>requested date {{i.requested_date}}</td>
+
+                {% elif i.booking_status == 'not_available' %}
+                <td class="py-4 px-3">Item is not available in the  <br>requested date {{i.requested_date}}</td>
+                {% else %}
+                <td class="py-4 px-3">{{i.booking_status}}</td>
+                {% endif %}
+                <td class=""><a href="{%url 'app1:itemdetail' i.item.pk %}" class="btn btn-info m-3">Details</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

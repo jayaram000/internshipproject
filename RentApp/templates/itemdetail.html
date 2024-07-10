@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="container-fluid " style="padding-top: 125px;">
+
+ <section class="main-wrap">
+        <div class="row me-5">
+
+            <div class="image-gallery col-md-5 ms-5 me-3" >
+                <img src="{{p.image.url}}" id="productImg" alt="" style="height:400px;width:100%;padding-top: 100px;">
+                </div>
+            <div class="product-details col-md-5 " style="padding-top: 100px;">
+                <div class="details pt-2 ">
+                    <h2>{{p.name}}</h2>
+                    <h6>{{p.desc}}</h6>
+                <div class="mt-2 mb-2">
+                    {% if f %}
+                    <a href="{% url 'app1:fav' p.pk %}" style="text-decoration:none;color:red;"><i class="fa-solid fa-heart   fs-5"></i></a>
+
+                    {% else %}
+
+                    <a href="{% url 'app1:fav' p.pk %}" style="text-decoration:none;color:red;"><i class="fa-regular fa-heart    fs-5"></i></a>
+
+                    {% endif %}
+                </div>
+
+                    <h4 class="d-inline-block">Price: {{ p.price }}</h4><h5 class="d-inline-block"> /- &nbsp;&nbsp;per day</h5>
+
+                    <h4>Contact No : {{p.phone}}</h4>
+
+                     <p><i>Posted date : {{p.created}}</i></p>
+                </div>
+                {% if p.user == request.user %}
+
+                <p>uploaded by you</p>
+            </div>
+        </div>
+    </section>
+                {% else %}
+                <div class="sub-btn">
+                    <a href="" data-bs-toggle="modal" data-bs-target="#bookingModal" class="btn btn-info ">Check availability</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endif %}
+
+
+<!-- Modal -->
+<div class="modal fade" id="bookingModal" tabindex="-1" aria-labelledby="bookingModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="bookingModalLabel">Check availability</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Your form goes here -->
+                <form id="bookingForm" method="POST" action="{% url 'app1:requestform' p.pk %}">
+                    {% csrf_token %}
+                    <!-- Form fields -->
+<!--                    <div class="mb-3">-->
+<!--                        <input type="text" name="name" placeholder="Your Name" class="form-control" required>-->
+<!--                    </div>-->
+                    <div class="mb-3">
+                        <input type="email" name="email" placeholder="Your Email" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <input type="date" name="date" placeholder="Booking date" class="form-control" required>
+                    </div>
+                    <div id="formMessage" class="alert d-none"></div> <!-- Success/Error message container -->
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('bookingForm').addEventListener('submit', function(event) {
+        // Show success message
+        var formMessage = document.getElementById('formMessage');
+        formMessage.innerHTML = 'Form submitted successfully!';
+        formMessage.classList.remove('alert-danger'); // Remove any error classes
+        formMessage.classList.add('alert-success'); // Add success class
+        formMessage.classList.remove('d-none'); // Show the message
+
+        // Allow the form to submit after showing the success message
+        setTimeout(function() {
+            formMessage.classList.add('d-none'); // Hide the message again
+            event.target.submit(); // Manually submit the form
+        }, 20000); // Adjust the delay (in milliseconds) as needed
+    });
+</script>
+
+{% endblock %}

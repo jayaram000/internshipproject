@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}All Items{% endblock %}
+
+{% block content %}
+<div class="container-fluid mb-5 pb-5" style="padding-top: 125px;" >
+
+    <div id="carouselExampleCaptions" class="carousel slide mb-5" data-bs-ride="carousel" data-aos="fade-down">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <div class="banner carousel-overlay">
+                    <img src="{% static 'images/vehicles.jpg' %}"  alt="...">
+                    <div class="banner-text carousel-caption">
+                        <h3 class="ms-5">Vehicles</h3>
+                        <p>Explore our collection of vehicles available for rent  and discover the perfect ride for your next adventure.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="banner carousel-overlay">
+                    <img src="{% static 'images/electronics.jpg' %}"  alt="...">
+                    <div class="banner-text carousel-caption">
+                        <h3 class="ms-5">Electronics</h3>
+                        <p>Experience the convenience of renting good-quality electronics items for your desired purpose</p>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="banner carousel-overlay">
+                    <img src="{% static 'images/buildong.jpg' %}" alt="...">
+                    <div class="banner-text carousel-caption">
+                        <h3 class="ms-5">Buildings,Apartment,House...</h3>
+                        <p>Discover the perfect rental solution for your lifestyle,whether it's a spacious house, a modern apartment, or a prestigious building in the heart of the city</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+<div class="row">
+  {% for i in items %}
+  <div class="col-lg-3 col-md-4 col-sm-6  mb-5 " data-aos="fade-left">
+<div class="product-card mt-2 mb-4 ms-4" style="background-color:white;border-radius:10px;box-shadow:0 4px 8px rgba(0,0,0,0.1);transition:all .5s;overflow:hidden;width:300px;">
+
+  <div class="product-image " >
+    <img src="{{i.image.url}}" style="width:100%;height:200px;background-size:cover;" class="image-hover">
+  </div>
+  <div class="product-info">
+
+    <div class="product-name p-2 text-center"><b>{{i.name}}</b></div>
+    <div class="product-price ps-2 text-center">{{i.price}} per day</div>
+    <div class="product-upload pt-2 ps-2 text-center"></div>
+    <center><a href="{%url 'app1:itemdetail' i.pk %}" class="btn btn-info m-3">Details</a></center>
+  </div>
+</div>
+    </div>
+{% endfor %}
+</div>
+
+
+
+</div>
+
+
+
+{% endblock %}

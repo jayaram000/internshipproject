@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block extra_css %}
+<link rel="stylesheet"  href="{% static 'css/registerlogin.css' %}">
+{% endblock %}
+
+
+
+
+{% block content %}
+<div class="container-fluid pb-5" style="padding-top: 30px;margin-bottom:50px;" data-aos="fade-left">
+  <div class="container mb-5 pb-5 pt-3" >
+
+      {% if success %}
+    <p class="alert alert-success ">{{ success }} Click here to <a href="{%url 'app1:login' %}" class="alert-link">Login</a></p>
+    {% endif %}
+
+    {% if failed %}
+    <p class="alert alert-danger fs-5 ">{{ failed }}</p>
+    {% endif %}
+
+<!--/******registration****/-->
+    <div class="registration form mt-2 ">
+      <header>Signup</header>
+      <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="text" placeholder="Enter your firstname" name="fn" required>
+        <input type="text" placeholder="Enter your lastname" name="ln" required>
+        <input type="text" placeholder="Enter a Username" name="un" required>
+        <input type="email" placeholder="Enter your email" name="email" required>
+        <input type="password" placeholder="Create a password" name="pass" required>
+        <input type="password" placeholder="Confirm your password" name="cpass" required>
+
+        <input type="submit" class="btn btn-info " value="Signup">
+      </form>
+      <div class="signup">
+        <span class="signup">Already have an account?
+         <a href="{% url 'app1:login' %}">Login</a>
+        </span>
+      </div>
+    </div>
+
+  </div>
+
+
+</div>
+{% endblock %}
